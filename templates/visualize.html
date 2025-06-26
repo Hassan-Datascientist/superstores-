@@ -1,0 +1,94 @@
+ <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cluster Visualizations</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Cluster Visualizations</h1>
+        
+        <h2>Cluster Distribution (Pie Chart)</h2>
+        <canvas id="pieChart"></canvas>
+        
+        <h2>Average Feature Values by Cluster (Bar Chart)</h2>
+        <canvas id="barChart"></canvas>
+        
+        <h2>Sales Distribution (Histogram)</h2>
+        <canvas id="histChart"></canvas>
+        
+        <br>
+        <a href="/">Back to Form</a> | <a href="/predict">View Result</a>
+    </div>
+    
+    <script>
+        const pieData = {{ pie_data | safe }};
+        new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Cluster 0', 'Cluster 1', 'Cluster 2', 'Cluster 3'],
+                datasets: [{
+                    data: pieData,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Cluster Distribution (%)' }
+                }
+            }
+        });
+
+        const barData = {{ bar_data | safe }};
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Cluster 0', 'Cluster 1', 'Cluster 2', 'Cluster 3'],
+                datasets: [
+                    { label: 'Sales', data: barData.Sales, backgroundColor: '#FF6384' },
+                    { label: 'Quantity', data: barData.Quantity, backgroundColor: '#36A2EB' },
+                    { label: 'Discount', data: barData.Discount, backgroundColor: '#FFCE56' },
+                    { label: 'Profit', data: barData.Profit, backgroundColor: '#4BC0C0' }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Value' } }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Average Feature Values by Cluster' }
+                }
+            }
+        });
+
+        const histData = {{ hist_data | safe }};
+        new Chart(document.getElementById('histChart'), {
+            type: 'bar',
+            data: {
+                labels: histData.map((_, i) => `Bin ${i+1}`),
+                datasets: [{
+                    label: 'Sales',
+                    data: histData,
+                    backgroundColor: '#36A2EB'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Sales Range' } },
+                    y: { title: { display: true, text: 'Count' } }
+                },
+                plugins: {
+                    title: { display: true, text: 'Sales Distribution Histogram' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

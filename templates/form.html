@@ -1,0 +1,31 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superstore Clustering - Input Form</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Superstore KMeans Clustering</h1>
+        <form action="/predict" method="POST">
+            <label for="sales">Sales ($):</label>
+            <input type="number" id="sales" name="sales" step="0.01" required min="0"><br><br>
+            
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required min="1"><br><br>
+            
+            <label for="discount">Discount (0-1):</label>
+            <input type="number" id="discount" name="discount" step="0.01" required min="0" max="1"><br><br>
+            
+            <label for="profit">Profit ($):</label>
+            <input type="number" id="profit" name="profit" step="0.01" required><br><br>
+            
+            <button type="submit">Predict Cluster</button>
+        </form>
+        <br>
+        <a href="/visualize">View Cluster Visualizations</a>
+    </div>
+</body>
+</html>

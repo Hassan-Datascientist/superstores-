@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clustering Result</h1>
+        <h2>Input Data</h2>
+        <p>Sales: ${{ sales }}</p>
+        <p>Quantity: {{ quantity }}</p>
+        <p>Discount: {{ discount }}</p>
+        <p>Profit: ${{ profit }}</p>
+        <h2>Result</h2>
+        <p><strong>Cluster:</strong> {{ cluster }}</p>
+        <p><strong>Advice:</strong> {{ advice }}</p>
+        <br>
+        <a href="/">Back to Form</a> | <a href="/visualize">View Visualizations</a>
+    </div>
+</body>
+</html>
+
